@@ -1,7 +1,10 @@
 import 'question.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 class QuizBrain {
   int _questionNumber = 0;
+ // double _trackingProgress = 0;
+  //int _score = 0;
 
   List<Question> _questionBank = [
     Question('Some cats are actually allergic to humans', true),
@@ -29,6 +32,15 @@ class QuizBrain {
     Question(
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
+    Question('As far as has ever been reported, no-one has ever seen an ostrich bury its head in the sand.',true),
+    Question('Approximately one quarter of human bones are in the feet.',true),
+    Question('opeye’s nephews were called Peepeye, Poopeye, Pipeye and Pupeye.',true),
+    Question('In ancient Rome, a special room called a vomitorium was available for diners to purge food in during meals.',false),
+    Question('The average person will shed 10 pounds of skin during their lifetime.',false),
+    Question('Sneezes regularly exceed 100 m.p.h.',true),
+    Question('The Great Wall Of China is visible from the moon.',false),
+    Question('Virtually all Las Vegas gambling casinos ensure that they have no clocks.',true),
+    Question('The total surface area of two human lungs have a surface area of approximately 70 square metres.',true),
   ];
 
   void nextQuestion() {
@@ -46,8 +58,27 @@ class QuizBrain {
   }
 
   //TODO: Step 3 Part A - Create a method called isFinished() here that checks to see if we have reached the last question. It should return (have an output) true if we've reached the last question and it should return false if we're not there yet.
+  bool isFinished() {
+    if (_questionNumber == _questionBank.length - 1) return true;
+    else return false;
+  }
 
   //TODO: Step 3 Part B - Use a print statement to check that isFinished is returning true when you are indeed at the end of the quiz and when a restart should happen.
 
   //TODO: Step 4 Part A - Create a reset() method here that sets the questionNumber back to 0.
+  void reset() {
+    _questionNumber = 0;
+  }
+
+ double currentProgress() {
+   return (_questionNumber + 1)/_questionBank.length*100.round();
+
+ }
+
+  void displayProgressBar() {
+    FAProgressBar(
+      currentValue: _questionNumber - _questionNumber,
+      displayText: '%',
+    );
+  }
 }
