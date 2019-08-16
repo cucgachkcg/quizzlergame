@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^0.1.2
+  rflutter_alert: ^1.0.3
+  flutter_animation_progress_bar: ^1.0.0
   #TODO: Step 1 - Add the rFlutter Alert package as a dependency here and use "Packages get".
 
 dev_dependencies:
