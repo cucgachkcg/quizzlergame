@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'dart:io';
+import 'dart:math';
+
 //TODO: Step 2 - Import the rFlutter_Alert package here.
 import 'quiz_brain.dart';
 
@@ -38,15 +40,24 @@ class _QuizPageState extends State<QuizPage> {
   int incorrectScore = 0;
   double score = 0.0;
   int trackingProgress = 0;
+  int fac = pow(10, 2);
+
+
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
       trackingProgress = quizBrain.currentProgress().round();
-      print(trackingProgress);
+      print(score);
       //TODO: Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If true, execute Part A, B, C, D.
       if (quizBrain.isFinished() == true) {
-        score = correctScore/(correctScore+incorrectScore)*100;
+        score = correctScore/(correctScore+incorrectScore)*100.round();
+        score = (score*fac).round() / fac;
+//        int decimals = 2;
+//        int fac = pow(10, decimals);
+//        double d = 1.234567889;
+//        d = (d * fac).round() / fac;
+//        print("d: $d");
         Alert(
           context: context,
           type: AlertType.success,
@@ -106,8 +117,8 @@ class _QuizPageState extends State<QuizPage> {
           Alert(
             context: context,
             type: AlertType.info,
-            title: "QUIZZLER ALERT",
-            desc: "Youre answer is correct.\n Your score is $score.",
+            title: "CORRECT",
+            desc: "Your score is $correctScore.",
             buttons: [
               DialogButton(
                 child: Text(
@@ -128,8 +139,8 @@ class _QuizPageState extends State<QuizPage> {
           Alert(
             context: context,
             type: AlertType.error,
-            title: "QUIZZLER ALERT",
-            desc: "Youre answer is incorrect.\n Your score is $score.",
+            title: "WRONG",
+            desc: "Your score is $correctScore.",
             buttons: [
               DialogButton(
                 child: Text(
@@ -210,9 +221,9 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Row(
+        Wrap(
           children: scoreKeeper,
-        ),
+          ),
         FAProgressBar(
           currentValue: trackingProgress,
           displayText: '%',
@@ -222,9 +233,3 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
-
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

@@ -3,7 +3,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 
 class QuizBrain {
   int _questionNumber = 0;
- // double _trackingProgress = 0;
+  double _trackingProgress = 0;
   //int _score = 0;
 
   List<Question> _questionBank = [
@@ -71,13 +71,13 @@ class QuizBrain {
   }
 
  double currentProgress() {
-   return (_questionNumber + 1)/_questionBank.length*100.round();
-
+   _trackingProgress = (_questionNumber + 1)/_questionBank.length*100.round();
+   return _trackingProgress;
  }
 
   void displayProgressBar() {
     FAProgressBar(
-      currentValue: _questionNumber - _questionNumber,
+      currentValue: _trackingProgress.round(),
       displayText: '%',
     );
   }
